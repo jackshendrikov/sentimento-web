@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import datetime
 import os
 import textwrap
+import uuid
 
 from django.conf import settings
 from django.contrib.auth.models import Group
@@ -64,6 +65,7 @@ class TaskList(models.Model):
 
 
 class Task(models.Model):
+    id = models.CharField(max_length=100, blank=True, unique=True, primary_key=True, default=uuid.uuid4)
     title = models.CharField(max_length=140)
     task_list = models.ForeignKey(TaskList, on_delete=models.CASCADE, null=True)
     created_date = models.DateField(default=timezone.now, blank=True, null=True)

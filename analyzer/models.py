@@ -70,8 +70,6 @@ class Task(models.Model):
     due_date = models.DateField(blank=True, null=True)
     completed = models.BooleanField(default=False)
     completed_date = models.DateField(blank=True, null=True)
-    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, related_name="task_created_by",
-                                   on_delete=models.CASCADE, )
     assigned_to = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, related_name="task_assigned_to",
                                     on_delete=models.CASCADE, )
     note = models.TextField(blank=True, null=True)

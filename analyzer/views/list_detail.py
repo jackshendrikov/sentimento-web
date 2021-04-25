@@ -1,6 +1,6 @@
 import bleach
 from django.contrib import messages
-from django import forms
+from django.core.exceptions import ValidationError
 from django.utils.safestring import mark_safe
 from django.http import HttpResponse
 from django.core.validators import validate_email
@@ -44,18 +44,19 @@ def list_detail(request, list_id=None, list_slug=None, view_completed=False) -> 
             new_task = form.save(commit=False)
             new_task.created_by = bleach.clean(form.cleaned_data["username"], strip=True)
             new_task.note = bleach.clean(form.cleaned_data["note"], strip=True)
-            form.save()
 
             try:
                 validate_email(new_task.email)
-            except forms.ValidationError:
-                messages.error(request, 'Enter correct email!')
 
-            messages.success(request, 'New task "{t}" has been added!'.format(t=new_task.username))
-            messages.info(request, mark_safe('You can add your attachments here: '
-                                             '<a href="../../task/' + new_task.id + '">' + new_task.id + '</a>.'))
+                form.save()
 
-            return redirect(request.path)
+                messages.success(request, 'New task "{t}" has been added!'.format(t=new_task.username))
+                messages.info(request, mark_safe('You can add your attachments here: '
+                                                 '<a href="../../task/' + new_task.id + '">' + new_task.id + '</a>.'))
+
+                return redirect(request.path)
+            except ValidationError:
+                messages.warning(request, 'Enter correct email!')
     else:
         # Don't allow adding new tasks on some views
         if list_slug not in ["mine", "recent-add", "recent-complete"]:

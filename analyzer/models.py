@@ -69,7 +69,7 @@ class Task(models.Model):
     username = models.CharField(max_length=140)
     task_list = models.ForeignKey(TaskList, on_delete=models.CASCADE, null=True)
     created_date = models.DateField(default=timezone.now, blank=True, null=True)
-    email = models.CharField(max_length=100, default=False)
+    email = models.CharField(max_length=100, blank=False, default=False)
     completed = models.BooleanField(default=False)
     completed_date = models.DateField(blank=True, null=True)
     assigned_to = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, related_name="task_assigned_to",

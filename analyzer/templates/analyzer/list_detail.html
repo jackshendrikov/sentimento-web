@@ -3,7 +3,7 @@
 {% block title %}Task List: {{ task_list.name }}{% endblock %}
 
 {% block content %}
-    {% if list_slug != "mine" %}
+        {% if list_slug != "mine" %}
         <div style="text-align: center; margin-bottom: 15px;">
             <button class="btn btn-primary" style="width: 200px;" id="AddTaskButton" type="button" data-toggle="collapse" data-target="#AddEditTask">Add Task</button>
         </div>
@@ -14,70 +14,72 @@
         </div>
     {% endif %}
 
-    {% if tasks %}
-        {% if list_slug == "mine" %}
-            <div class="content-section-main-title" style="margin-bottom: 14px; font-size: 20px;">Tasks assigned to me (in all groups)</div>
-        {% else %}
-            <div class="content-section-main-title" style="font-size: 20px;">{{ view_completed|yesno:"Completed tasks, Tasks" }} in "{{ task_list.name }}"</div>
-            <p style="text-align: center;"><small><i>In workgroup "{{ task_list.group }}" - drag rows to set priorities.</i></small></p>
-        {% endif %}
+    {% if user.is_authenticated %}
+        {% if tasks %}
+            {% if list_slug == "mine" %}
+                <div class="content-section-main-title" style="margin-bottom: 14px; font-size: 20px;">Tasks assigned to me (in all groups)</div>
+            {% else %}
+                <div class="content-section-main-title" style="font-size: 20px;">{{ view_completed|yesno:"Completed tasks, Tasks" }} in "{{ task_list.name }}"</div>
+                <p style="text-align: center;"><small><i>In workgroup "{{ task_list.group }}" - drag rows to set priorities.</i></small></p>
+            {% endif %}
 
-        <table class="table" id="tasktable">
-            <tr class="nodrop" style="color: var(--table-text); background: var(--table-bg);">
-                <th>Task</th>
-                <th>Created</th>
-                <th>Due on</th>
-                <th>Owner</th>
-                <th>Assigned</th>
-                <th>Mark</th>
-                <th>Delete</th>
-            </tr>
-
-            {% for task in tasks %}
-                <tr id="{{ task.id }}" style="color: var(--content-title-color);">
-                    <td>
-                        <a href="{% url 'analyzer:task_detail' task.id %}">{{ task.title|truncatewords:10 }}</a>
-                    </td>
-
-                    <td>{{ task.created_date|date:"d/m/Y" }}</td>
-
-                    <td>
-                        <span {% if task.overdue_status %}class="overdue"{% endif %}>
-                            {{ task.due_date|date:"d/m/Y" }}
-                        </span>
-                    </td>
-
-                    <td>{{ task.created_by }}</td>
-
-                    <td>{% if task.assigned_to %}{{ task.assigned_to }}{% else %}Anyone{% endif %}</td>
-
-                    <td>
-                        <form method="post" action="{% url "analyzer:task_toggle_done" task.id %}" role="form">
-                            {% csrf_token %}
-                            <button class="btn btn-info btn-sm" type="submit" name="toggle_done">
-                                {% if view_completed %}
-                                    Not Done
-                                {% else %}
-                                    Done
-                                {% endif %}
-                            </button>
-                        </form>
-                    </td>
-
-                    <td>
-                        <form method="post" action="{% url "analyzer:delete_task" task.id %}" role="form">
-                            {% csrf_token %}
-                            <input type="submit" value="X" class="btn btn-danger btn-sm" name="submit_delete" style="width: 40px; font-size: 14px;">
-                        </form>
-                    </td>
+            <table class="table" id="tasktable">
+                <tr class="nodrop" style="color: var(--table-text); background: var(--table-bg);">
+                    <th>Task</th>
+                    <th>Created</th>
+                    <th>Due on</th>
+                    <th>Owner</th>
+                    <th>Assigned</th>
+                    <th>Mark</th>
+                    <th>Delete</th>
                 </tr>
-            {% endfor %}
-        </table>
 
-        {% include 'analyzer/include/toggle_delete.html' %}
-    {% else %}
-        <div class="content-section-main-title" style="margin: 10px 10px; font-size: 22px;">No tasks on this list yet (add one!)</div>
-        {% include 'analyzer/include/toggle_delete.html' %}
+                {% for task in tasks %}
+                    <tr id="{{ task.id }}" style="color: var(--content-title-color);">
+                        <td>
+                            <a href="{% url 'analyzer:task_detail' task.id %}">{{ task.title|truncatewords:10 }}</a>
+                        </td>
+
+                        <td>{{ task.created_date|date:"d/m/Y" }}</td>
+
+                        <td>
+                            <span {% if task.overdue_status %}class="overdue"{% endif %}>
+                                {{ task.due_date|date:"d/m/Y" }}
+                            </span>
+                        </td>
+
+                        <td>{{ task.created_by }}</td>
+
+                        <td>{% if task.assigned_to %}{{ task.assigned_to }}{% else %}Anyone{% endif %}</td>
+
+                        <td>
+                            <form method="post" action="{% url "analyzer:task_toggle_done" task.id %}" role="form">
+                                {% csrf_token %}
+                                <button class="btn btn-info btn-sm" type="submit" name="toggle_done">
+                                    {% if view_completed %}
+                                        Not Done
+                                    {% else %}
+                                        Done
+                                    {% endif %}
+                                </button>
+                            </form>
+                        </td>
+
+                        <td>
+                            <form method="post" action="{% url "analyzer:delete_task" task.id %}" role="form">
+                                {% csrf_token %}
+                                <input type="submit" value="X" class="btn btn-danger btn-sm" name="submit_delete" style="width: 40px; font-size: 14px;">
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+            {% include 'analyzer/include/toggle_delete.html' %}
+        {% else %}
+            <div class="content-section-main-title" style="margin: 10px 10px; font-size: 22px;">No tasks on this list yet (add one!)</div>
+            {% include 'analyzer/include/toggle_delete.html' %}
+        {% endif %}
     {% endif %}
 {% endblock %}
 

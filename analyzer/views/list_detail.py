@@ -1,13 +1,11 @@
 import bleach
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.core.exceptions import PermissionDenied
+from django.utils.safestring import mark_safe
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
 from analyzer.forms import AddEditTaskForm
 from analyzer.models import Task, TaskList
-from analyzer.utils import staff_check
 
 
 def list_detail(request, list_id=None, list_slug=None, view_completed=False) -> HttpResponse:
@@ -46,7 +44,10 @@ def list_detail(request, list_id=None, list_slug=None, view_completed=False) -> 
             new_task.note = bleach.clean(form.cleaned_data["note"], strip=True)
             form.save()
 
-            messages.success(request, 'New task "{t}" has been added.'.format(t=new_task.title))
+            messages.success(request, 'New task "{t}" has been added!'.format(t=new_task.title))
+            messages.info(request, mark_safe('You can add your attachments here: '
+                                             '<a href="../../task/' + new_task.id + '">' + new_task.id + '</a>.'))
+
             return redirect(request.path)
     else:
         # Don't allow adding new tasks on some views

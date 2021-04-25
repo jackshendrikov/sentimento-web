@@ -198,7 +198,6 @@
     {# Support file attachment uploader #}
     <script>
         $('#attachment_file_input').on('change',function(){
-            // Get the file name and remove browser-added "fakepath". Then replace the "Choose a file" label.
             let fileName = $(this).val().replace('C:\\fakepath\\', " ");
             $(this).next('.custom-file-label').html(fileName);
         })

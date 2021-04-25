@@ -29,18 +29,11 @@ def handle_add_comment(request, task):
     messages.success(request, "Comment posted.")
 
 
-@login_required
-@user_passes_test(staff_check)
 def task_detail(request, task_id: int) -> HttpResponse:
     """View task details. Allow task details to be edited. Process new comments on task."""
 
     task = get_object_or_404(Task, pk=task_id)
     comment_list = Comment.objects.filter(task=task_id).order_by("-date")
-
-    # Ensure user has permission to view task. Superusers can view all tasks.
-    # Get the group this task belongs to, and check whether current user is a member of that group.
-    if not user_can_read_task(task, request.user):
-        raise PermissionDenied
 
     # Handle task merging
     if not HAS_TASK_MERGE:

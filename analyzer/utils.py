@@ -21,7 +21,7 @@ def user_can_read_task(task, user):
     return task.task_list.group in user.groups.all() or user.is_superuser
 
 
-def toggle_task_completed(task_id: int) -> bool:
+def toggle_task_completed(task_id: str) -> bool:
     """Toggle the `completed` bool on Task from True to False or vice versa."""
     try:
         task = Task.objects.get(id=task_id)
@@ -34,7 +34,7 @@ def toggle_task_completed(task_id: int) -> bool:
         return False
 
 
-def remove_attachment_file(attachment_id: int) -> bool:
+def remove_attachment_file(attachment_id: str) -> bool:
     """Delete an Attachment object and its corresponding file from the filesystem."""
     try:
         attachment = Attachment.objects.get(id=attachment_id)

@@ -38,7 +38,7 @@ DEFAULT_ASSIGNEE = 'teacher'
 PUBLIC_SUBMIT_REDIRECT = '/analyzer/ticket/add/'
 
 ALLOW_FILE_ATTACHMENTS = True
-ALLOWED_FILE_ATTACHMENTS = [".jpg", ".gif", ".csv", ".pdf", ".zip"]
+ALLOWED_FILE_ATTACHMENTS = [".txt", ".pdf"]
 MAXIMUM_ATTACHMENT_SIZE = 5000000  # In bytes
 
 COMMENT_CLASSES = []
@@ -63,6 +63,7 @@ INSTALLED_APPS = [
 
     'analyzer.apps.AnalyzerConfig',
     'authz.apps.AuthzConfig',
+    'home.apps.HomeConfig',
 ]
 
 MIDDLEWARE = [
@@ -86,6 +87,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.media',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'home.context_processors.settings',
@@ -154,6 +156,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     'static',
     os.path.join(BASE_DIR, 'static'),
+)
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 LOGOUT_REDIRECT_URL = '/home/'

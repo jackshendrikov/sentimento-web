@@ -9,7 +9,7 @@
             {% for f in found_tasks %}
                 <p>
                     <strong>
-                        <a href="{% url 'analyzer:task_detail' f.id %}" style="text-decoration: none; color: #d9edf7; font-size: 1.15rem;">{{ f.title }}</a>
+                        <a href="{% url 'analyzer:task_detail' f.id %}" style="text-decoration: none; color: #d9edf7; font-size: 1.15rem;">{{ f.username }}</a>
                     </strong>
                     <br/>
                     <span class="minor">

@@ -50,11 +50,11 @@
                 </li>
 
                 <li>
-                    <strong>Reported by: &nbsp;</strong> {{ task.created_by.get_full_name }}
+                    <strong>Reported by: &nbsp;</strong> {{ task.username }}
                 </li>
 
                 <li>
-                    <strong>Due date: &nbsp;</strong> {{ task.due_date }}
+                    <strong>Email: &nbsp;</strong> {{ task.email }}
                 </li>
 
                 {% if task.completed %}

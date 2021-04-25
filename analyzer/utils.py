@@ -34,7 +34,7 @@ def toggle_task_completed(task_id: str) -> bool:
         return False
 
 
-def remove_attachment_file(attachment_id: str) -> bool:
+def remove_attachment_file(attachment_id: int) -> bool:
     """Delete an Attachment object and its corresponding file from the filesystem."""
     try:
         attachment = Attachment.objects.get(id=attachment_id)

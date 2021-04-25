@@ -27,7 +27,7 @@
                 <tr class="nodrop" style="color: var(--table-text); background: var(--table-bg);">
                     <th>Task</th>
                     <th>Created</th>
-                    <th>Due on</th>
+                    <th>Email</th>
                     <th>Owner</th>
                     <th>Assigned</th>
                     <th>Mark</th>
@@ -37,18 +37,14 @@
                 {% for task in tasks %}
                     <tr id="{{ task.id }}" style="color: var(--content-title-color);">
                         <td>
-                            <a href="{% url 'analyzer:task_detail' task.id %}">{{ task.title|truncatewords:10 }}</a>
+                            <a href="{% url 'analyzer:task_detail' task.id %}">{{ task.username|truncatewords:10 }}</a>
                         </td>
 
                         <td>{{ task.created_date|date:"d/m/Y" }}</td>
 
                         <td>
-                            <span {% if task.overdue_status %}class="overdue"{% endif %}>
-                                {{ task.due_date|date:"d/m/Y" }}
-                            </span>
+                            {{ task.email }}
                         </td>
-
-                        <td>{{ task.created_by }}</td>
 
                         <td>{% if task.assigned_to %}{{ task.assigned_to }}{% else %}Anyone{% endif %}</td>
 

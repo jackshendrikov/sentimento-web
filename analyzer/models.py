@@ -66,10 +66,10 @@ class TaskList(models.Model):
 
 class Task(models.Model):
     id = models.CharField(max_length=100, blank=True, unique=True, primary_key=True, default=uuid.uuid4)
-    title = models.CharField(max_length=140)
+    username = models.CharField(max_length=140)
     task_list = models.ForeignKey(TaskList, on_delete=models.CASCADE, null=True)
     created_date = models.DateField(default=timezone.now, blank=True, null=True)
-    due_date = models.DateField(blank=True, null=True)
+    email = models.CharField(max_length=100, default=False)
     completed = models.BooleanField(default=False)
     completed_date = models.DateField(blank=True, null=True)
     assigned_to = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, related_name="task_assigned_to",
@@ -77,14 +77,8 @@ class Task(models.Model):
     note = models.TextField(blank=True, null=True)
     priority = models.PositiveIntegerField(blank=True, null=True)
 
-    # Has due date for an instance of this object passed?
-    def overdue_status(self):
-        """Returns whether the Tasks's due date has passed or not."""
-        if self.due_date and datetime.date.today() > self.due_date:
-            return True
-
     def __str__(self):
-        return self.title
+        return self.username
 
     def get_absolute_url(self):
         return reverse("analyzer:task_detail", kwargs={"task_id": self.id})

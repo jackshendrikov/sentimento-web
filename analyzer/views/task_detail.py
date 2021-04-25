@@ -4,7 +4,6 @@ import os
 import bleach
 from django import forms
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -14,7 +13,7 @@ from analyzer.defaults import defaults
 from analyzer.features import HAS_TASK_MERGE
 from analyzer.forms import AddEditTaskForm
 from analyzer.models import Attachment, Comment, Task
-from analyzer.utils import (staff_check, toggle_task_completed, user_can_read_task, )
+from analyzer.utils import (toggle_task_completed, user_can_read_task, )
 
 if HAS_TASK_MERGE:
     from dal import autocomplete
@@ -69,7 +68,7 @@ def task_detail(request, task_id: int) -> HttpResponse:
         if form.is_valid():
             item = form.save(commit=False)
             item.note = bleach.clean(form.cleaned_data["note"], strip=True)
-            item.title = bleach.clean(form.cleaned_data["title"], strip=True)
+            item.username = bleach.clean(form.cleaned_data["username"], strip=True)
             item.save()
             messages.success(request, "The task has been edited.")
             return redirect("analyzer:list_detail", list_id=task.task_list.id, list_slug=task.task_list.slug)
@@ -81,11 +80,6 @@ def task_detail(request, task_id: int) -> HttpResponse:
             messages.success(request, f"Changed completion status for task {task.id}")
 
         return redirect("analyzer:task_detail", task_id=task.id)
-
-    if task.due_date:
-        date = task.due_date
-    else:
-        date = datetime.datetime.now()
 
     # Handle uploaded files
     if request.FILES.get("attachment_file_input"):
@@ -110,7 +104,6 @@ def task_detail(request, task_id: int) -> HttpResponse:
         "comment_list": comment_list,
         "form": form,
         "merge_form": merge_form,
-        "thedate": date,
         "comment_classes": defaults("COMMENT_CLASSES"),
         "attachments_enabled": defaults("ALLOW_FILE_ATTACHMENTS"),
     }

@@ -29,7 +29,7 @@ class CSVImporter:
         with no path!
 
         Header row is:
-        Title, Group, Task List, Created Date, Due Date, Completed, Created By, Assigned To, Note, Priority
+        Username, Group, Task List, Created Date, Email, Completed, Created By, Assigned To, Note, Priority
         """
 
         if as_string_obj:
@@ -42,12 +42,12 @@ class CSVImporter:
         # DI check: Do we have expected header row?
         header = csv_reader.fieldnames
         expected = [
-            "Title",
+            "Username",
             "Group",
             "Task List",
             "Created By",
             "Created Date",
-            "Due Date",
+            "Email",
             "Completed",
             "Assigned To",
             "Note",
@@ -68,25 +68,25 @@ class CSVImporter:
                 # e.g. `newrow.get("Assigned To")`, is a Django User instance.
                 assignee = newrow.get("Assigned To") if newrow.get("Assigned To") else None
                 created_date = newrow.get("Created Date") if newrow.get("Created Date") else datetime.datetime.today()
-                due_date = newrow.get("Due Date") if newrow.get("Due Date") else None
+                email = newrow.get("Email") if newrow.get("Email") else None
                 priority = newrow.get("Priority") if newrow.get("Priority") else None
 
                 obj, created = Task.objects.update_or_create(
                     created_by=newrow.get("Created By"),
                     task_list=newrow.get("Task List"),
-                    title=newrow.get("Title"),
+                    username=newrow.get("Username"),
                     defaults={
                         "assigned_to": assignee,
                         "completed": newrow.get("Completed"),
                         "created_date": created_date,
-                        "due_date": due_date,
+                        "email": email,
                         "note": newrow.get("Note"),
                         "priority": priority,
                     },
                 )
                 self.upsert_count += 1
                 msg = (
-                    f'Upserted task {obj.id}: "{obj.title}"'
+                    f'Upserted task {obj.id}: "{obj.username}"'
                     f' in list "{obj.task_list}" (group "{obj.task_list.group}")'
                 )
                 self.upserts.append(msg)
@@ -159,7 +159,7 @@ class CSVImporter:
 
         # #######################
         # Validate Dates
-        datefields = ["Due Date", "Created Date"]
+        datefields = ["Email", "Created Date"]
         for datefield in datefields:
             datestring = row.get(datefield)
             if datestring:

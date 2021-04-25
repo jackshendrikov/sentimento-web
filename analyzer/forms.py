@@ -34,8 +34,8 @@ class AddEditTaskForm(ModelForm):
                                                    "name": "assigned_to", }
         self.fields["task_list"].value = kwargs["initial"]["task_list"].id
 
-    due_date = forms.DateField(widget=forms.DateInput(attrs={"type": "date"}), required=False)
-    title = forms.CharField(widget=forms.widgets.TextInput())
+    email = forms.CharField(widget=forms.widgets.TextInput())
+    username = forms.CharField(widget=forms.widgets.TextInput())
     note = forms.CharField(widget=forms.Textarea(), required=False)
     completed = forms.BooleanField(required=False)
 
@@ -52,13 +52,14 @@ class AddEditTaskForm(ModelForm):
 class AddExternalTaskForm(ModelForm):
     """Form to allow users who are not part of the GTD system to file a ticket."""
 
-    title = forms.CharField(widget=forms.widgets.TextInput(attrs={"size": 35}), label="Summary")
-    note = forms.CharField(widget=forms.widgets.Textarea(), label="Problem Description")
+    username = forms.CharField(widget=forms.widgets.TextInput(attrs={"size": 35}), label="Username")
+    email = forms.CharField(widget=forms.widgets.TextInput(attrs={"size": 35}), label="Email")
+    note = forms.CharField(widget=forms.widgets.Textarea(), label="Description")
     priority = forms.IntegerField(widget=forms.HiddenInput())
 
     class Meta:
         model = Task
-        exclude = ("task_list", "created_date", "due_date", "created_by", "assigned_to", "completed", "completed_date",)
+        exclude = ("task_list", "created_date", "email", "created_by", "assigned_to", "completed", "completed_date",)
 
 
 class SearchForm(forms.Form):

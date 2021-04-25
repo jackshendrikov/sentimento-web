@@ -1,7 +1,9 @@
 import bleach
 from django.contrib import messages
+from django import forms
 from django.utils.safestring import mark_safe
 from django.http import HttpResponse
+from django.core.validators import validate_email
 from django.shortcuts import get_object_or_404, redirect, render
 
 from analyzer.forms import AddEditTaskForm
@@ -40,11 +42,16 @@ def list_detail(request, list_id=None, list_slug=None, view_completed=False) -> 
 
         if form.is_valid():
             new_task = form.save(commit=False)
-            new_task.created_by = request.user
+            new_task.created_by = bleach.clean(form.cleaned_data["username"], strip=True)
             new_task.note = bleach.clean(form.cleaned_data["note"], strip=True)
             form.save()
 
-            messages.success(request, 'New task "{t}" has been added!'.format(t=new_task.title))
+            try:
+                validate_email(new_task.email)
+            except forms.ValidationError:
+                messages.error(request, 'Enter correct email!')
+
+            messages.success(request, 'New task "{t}" has been added!'.format(t=new_task.username))
             messages.info(request, mark_safe('You can add your attachments here: '
                                              '<a href="../../task/' + new_task.id + '">' + new_task.id + '</a>.'))
 

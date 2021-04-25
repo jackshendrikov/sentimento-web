@@ -103,15 +103,15 @@ class Task(models.Model):
         # lock the comments to avoid concurrent additions of comments after the
         # update request. these comments would be irremediably lost because of
         # the cascade clause
-        with LockedAtomicTransaction(Comments):
-            Comments.objects.filter(task=self).update(task=merge_target)
+        with LockedAtomicTransaction(Comment):
+            Comment.objects.filter(task=self).update(task=merge_target)
             self.delete()
 
     class Meta:
         ordering = ["priority", "created_date"]
 
 
-class Comments(models.Model):
+class Comment(models.Model):
     """
     Not using Django's built-in comments because we want to be able to save
     a comment and change task details at the same time. Rolling our own since it's easy.

@@ -63,5 +63,4 @@ class AddExternalTaskForm(ModelForm):
 
 class SearchForm(forms.Form):
     """Search."""
-
     q = forms.CharField(widget=forms.widgets.TextInput(attrs={"size": 35}))

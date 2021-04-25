@@ -4,7 +4,7 @@ import datetime
 from django.contrib import admin
 from django.http import HttpResponse
 
-from analyzer.models import Attachment, Comments, Task, TaskList
+from analyzer.models import Attachment, Comment, Task, TaskList
 
 
 def export_to_csv(modeladmin, request, queryset):
@@ -51,6 +51,6 @@ class AttachmentAdmin(admin.ModelAdmin):
 
 
 admin.site.register(TaskList)
-admin.site.register(Comments, CommentAdmin)
+admin.site.register(Comment, CommentAdmin)
 admin.site.register(Task, TaskAdmin)
 admin.site.register(Attachment, AttachmentAdmin)

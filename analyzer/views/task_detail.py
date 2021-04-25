@@ -13,7 +13,7 @@ from django.urls import reverse
 from analyzer.defaults import defaults
 from analyzer.features import HAS_TASK_MERGE
 from analyzer.forms import AddEditTaskForm
-from analyzer.models import Attachment, Comments, Task
+from analyzer.models import Attachment, Comment, Task
 from analyzer.utils import (staff_check, toggle_task_completed, user_can_read_task, )
 
 if HAS_TASK_MERGE:
@@ -24,7 +24,7 @@ def handle_add_comment(request, task):
     if not request.POST.get("add_comment"):
         return
 
-    Comments.objects.create(author=request.user, task=task, body=bleach.clean(request.POST["comment-body"], strip=True))
+    Comment.objects.create(author=request.user, task=task, body=bleach.clean(request.POST["comment-body"], strip=True))
 
     messages.success(request, "Comment posted.")
 
@@ -35,7 +35,7 @@ def task_detail(request, task_id: int) -> HttpResponse:
     """View task details. Allow task details to be edited. Process new comments on task."""
 
     task = get_object_or_404(Task, pk=task_id)
-    comment_list = Comments.objects.filter(task=task_id).order_by("-date")
+    comment_list = Comment.objects.filter(task=task_id).order_by("-date")
 
     # Ensure user has permission to view task. Superusers can view all tasks.
     # Get the group this task belongs to, and check whether current user is a member of that group.

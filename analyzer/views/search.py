@@ -19,7 +19,7 @@ def search(request) -> HttpResponse:
         if ("q" in request.GET) and request.GET["q"].strip():
             query_string = request.GET["q"]
 
-            found_tasks = Task.objects.filter(Q(title__icontains=query_string) | Q(note__icontains=query_string))
+            found_tasks = Task.objects.filter(Q(username__icontains=query_string) | Q(note__icontains=query_string))
         else:
             # What if they selected the "analyzed" toggle but didn't enter a query string?
             # We still need found_tasks in a queryset so it can be "excluded" below.

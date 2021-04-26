@@ -56,7 +56,7 @@ def list_detail(request, list_id=None, list_slug=None, view_analyzed=False) -> H
 
                 return redirect(request.path)
             except ValidationError:
-                messages.warning(request, 'Enter correct email!')
+                messages.error(request, 'Enter correct email!')
     else:
         # Don't allow adding new tasks on some views
         if list_slug not in ["mine", "recent-add", "recent-complete"]:

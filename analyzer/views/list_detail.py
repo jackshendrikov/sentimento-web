@@ -50,7 +50,7 @@ def list_detail(request, list_id=None, list_slug=None, view_analyzed=False) -> H
 
                 form.save()
 
-                messages.success(request, 'New task "{t}" has been added!'.format(t=new_task.username))
+                messages.success(request, 'New task from {t} has been added!'.format(t=new_task.username))
                 messages.info(request, mark_safe('You can add your attachments here: '
                                                  '<a href="../../task/' + new_task.id + '">' + new_task.id + '</a>.'))
 

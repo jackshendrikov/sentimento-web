@@ -13,7 +13,8 @@ from analyzer.defaults import defaults
 from analyzer.features import HAS_TASK_MERGE
 from analyzer.forms import AddEditTaskForm
 from analyzer.models import Attachment, Comment, Task
-from analyzer.utils import (toggle_task_analyzed, user_can_read_task, )
+from analyzer.utils import (toggle_task_analyzed, user_can_read_task)
+
 
 if HAS_TASK_MERGE:
     from dal import autocomplete

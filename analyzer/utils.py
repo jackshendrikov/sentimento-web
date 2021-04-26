@@ -21,11 +21,11 @@ def user_can_read_task(task, user):
     return task.task_list.group in user.groups.all() or user.is_superuser
 
 
-def toggle_task_completed(task_id: str) -> bool:
-    """Toggle the `completed` bool on Task from True to False or vice versa."""
+def toggle_task_analyzed(task_id: str) -> bool:
+    """Toggle the `analyzed` bool on Task from True to False or vice versa."""
     try:
         task = Task.objects.get(id=task_id)
-        task.completed = not task.completed
+        task.analyzed = not task.analyzed
         task.save()
         return True
 

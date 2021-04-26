@@ -30,7 +30,7 @@
                         {% csrf_token %}
                         <div style="display:inline; text-align: center;">
                             <button class="btn btn-info btn-sm" type="submit" name="toggle_done" style="width: auto; margin: 0 10px 0 0; font-size: 14px;">
-                                {% if task.completed %} Mark Not Done {% else %} Mark Done {% endif %}
+                                {% if task.analyzed %} Mark Not Done {% else %} Mark Done {% endif %}
                             </button>
                         </div>
                     </form>
@@ -48,7 +48,7 @@
 
                 <li>
                     <strong>Assigned to: &nbsp;</strong>
-                    {% if task.assigned_to %} {{ task.assigned_to.get_full_name }} {% else %} Anyone {% endif %}
+                    {% if task.assigned_to %}{{ task.assigned_to }}{% else %}Anyone{% endif %}
                 </li>
 
                 <li>
@@ -59,13 +59,13 @@
                     <strong>Email: &nbsp;</strong> {{ task.email }}
                 </li>
 
-                {% if task.completed %}
+                {% if task.analyzed %}
                     <li>
-                        <strong>Completed on: &nbsp;</strong> {{ task.completed_date}}
+                        <strong>Analyzed on: &nbsp;</strong> {{ task.analyzed_date}}
                     </li>
                 {% else %}
                     <li>
-                        <strong>Completed: &nbsp;</strong> {{ task.completed|yesno:"Yes,No" }}
+                        <strong>Analyzed: &nbsp;</strong> {{ task.analyzed|yesno:"Yes,No" }}
                     </li>
                 {% endif %}
 
@@ -116,7 +116,6 @@
                             <tr style="color: var(--table-text); background: var(--table-bg);">
                                 <th>File</th>
                                 <th>Uploaded</th>
-                                <th>By</th>
                                 <th>Type</th>
                                 <th>Remove</th>
                             </tr>
@@ -127,7 +126,6 @@
                                 <tr style="color: var(--content-title-color);">
                                     <td><a style="color: #1496bb;" href="{{ attachment.file.url }}">{{ attachment.filename }}</a></td>
                                     <td>{{ attachment.timestamp }}</td>
-                                    <td>{{ attachment.added_by.get_full_name }}</td>
                                     <td>{{ attachment.extension.lower }}</td>
                                     <td>
                                         <form action="{% url "analyzer:remove_attachment" attachment.id %}" method="POST">
@@ -159,6 +157,7 @@
         </div>
     {% endif %}
 
+    {% if user.is_authenticated %}
     <div class="mt-3" style="margin: 0 20px 0 20px;">
         <div class="content-section-title" style="font-size: 20px; text-align: center; color: var(--theme-color);">Add comment</div>
         <form action="" method="post">
@@ -169,6 +168,7 @@
             <input class="btn btn-sm btn-primary" type="submit" name="add_comment" value="Add Comment" style="font-size: 16px;">
         </form>
     </div>
+    {% endif %}
 
     <div class="task_comments mt-4">
         {% if comment_list %}

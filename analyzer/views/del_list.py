@@ -26,8 +26,8 @@ def del_list(request, list_id: int, list_slug: str) -> HttpResponse:
         messages.success(request, "{list_name} is gone.".format(list_name=task_list.name))
         return redirect("analyzer:lists")
     else:
-        task_count_done = Task.objects.filter(task_list=task_list.id, completed=True).count()
-        task_count_undone = Task.objects.filter(task_list=task_list.id, completed=False).count()
+        task_count_done = Task.objects.filter(task_list=task_list.id, analyzed=True).count()
+        task_count_undone = Task.objects.filter(task_list=task_list.id, analyzed=False).count()
         task_count_total = Task.objects.filter(task_list=task_list.id).count()
 
     context = {

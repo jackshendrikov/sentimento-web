@@ -18,7 +18,7 @@
                             {{ f.task_list.name }}
                         </a>
                         <br/> Assigned to: {% if f.assigned_to %}{{ f.assigned_to }}{% else %}Anyone{% endif %}
-                        <br/> Complete: {{ f.completed|yesno:"Yes,No" }}
+                        <br/> Complete: {{ f.analyzed|yesno:"Yes,No" }}
                     </span>
                 </p>
             {% endfor %}

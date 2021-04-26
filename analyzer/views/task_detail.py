@@ -13,7 +13,7 @@ from analyzer.defaults import defaults
 from analyzer.features import HAS_TASK_MERGE
 from analyzer.forms import AddEditTaskForm
 from analyzer.models import Attachment, Comment, Task
-from analyzer.utils import (toggle_task_completed, user_can_read_task, )
+from analyzer.utils import (toggle_task_analyzed, user_can_read_task, )
 
 if HAS_TASK_MERGE:
     from dal import autocomplete
@@ -75,7 +75,7 @@ def task_detail(request, task_id: int) -> HttpResponse:
 
     # Mark complete
     if request.POST.get("toggle_done"):
-        results_changed = toggle_task_completed(task.id)
+        results_changed = toggle_task_analyzed(task.id)
         if results_changed:
             messages.success(request, f"Changed completion status for task {task.id}")
 
@@ -95,7 +95,7 @@ def task_detail(request, task_id: int) -> HttpResponse:
             messages.error(request, f"This site does not allow upload of {extension} files.")
             return redirect("analyzer:task_detail", task_id=task.id)
 
-        Attachment.objects.create(task=task, added_by=request.user, timestamp=datetime.datetime.now(), file=file)
+        Attachment.objects.create(task=task, timestamp=datetime.datetime.now(), file=file)
         messages.success(request, f"File attached successfully")
         return redirect("analyzer:task_detail", task_id=task.id)
 

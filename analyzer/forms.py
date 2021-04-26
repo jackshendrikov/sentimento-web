@@ -37,7 +37,7 @@ class AddEditTaskForm(ModelForm):
     email = forms.CharField(widget=forms.widgets.TextInput())
     username = forms.CharField(widget=forms.widgets.TextInput())
     note = forms.CharField(widget=forms.Textarea(), required=False)
-    completed = forms.BooleanField(required=False)
+    analyzed = forms.BooleanField(required=False)
 
     def clean_created_by(self):
         """Keep the existing created_by regardless of anything coming from the submitted form.
@@ -59,7 +59,7 @@ class AddExternalTaskForm(ModelForm):
 
     class Meta:
         model = Task
-        exclude = ("task_list", "created_date", "email", "created_by", "assigned_to", "completed", "completed_date",)
+        exclude = ("task_list", "created_date", "email", "created_by", "assigned_to", "analyzed", "analyzed_date",)
 
 
 class SearchForm(forms.Form):

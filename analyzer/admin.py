@@ -34,7 +34,7 @@ export_to_csv.short_description = "Export to CSV"
 
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ("username", "task_list", "completed", "priority", "email")
+    list_display = ("username", "task_list", "analyzed", "priority", "email")
     list_filter = ("task_list",)
     ordering = ("priority",)
     search_fields = ("username",)
@@ -46,8 +46,8 @@ class CommentAdmin(admin.ModelAdmin):
 
 
 class AttachmentAdmin(admin.ModelAdmin):
-    list_display = ("task", "added_by", "timestamp", "file")
-    autocomplete_fields = ["added_by", "task"]
+    list_display = ("task", "timestamp", "file")
+    autocomplete_fields = ["task"]
 
 
 admin.site.register(TaskList)

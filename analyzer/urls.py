@@ -17,8 +17,8 @@ urlpatterns = [
     # Three paths into `list_detail` view
     path('mine/', views.list_detail, {'list_slug': 'mine'}, name="mine"),
 
-    path('<int:list_id>/<str:list_slug>/completed/', views.list_detail, {'view_completed': True},
-         name='list_detail_completed'),
+    path('<int:list_id>/<str:list_slug>/analyzed/', views.list_detail, {'view_analyzed': True},
+         name='list_detail_analyzed'),
     path('<int:list_id>/<str:list_slug>/', views.list_detail, name='list_detail'),
     path('<int:list_id>/<str:list_slug>/delete/', views.del_list, name="del_list"),
 

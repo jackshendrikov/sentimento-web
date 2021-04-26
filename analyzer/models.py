@@ -70,8 +70,8 @@ class Task(models.Model):
     task_list = models.ForeignKey(TaskList, on_delete=models.CASCADE, null=True)
     created_date = models.DateField(default=timezone.now, blank=True, null=True)
     email = models.CharField(max_length=100, blank=False, default=False)
-    completed = models.BooleanField(default=False)
-    completed_date = models.DateField(blank=True, null=True)
+    analyzed = models.BooleanField(default=False)
+    analyzed_date = models.DateField(blank=True, null=True)
     assigned_to = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, related_name="task_assigned_to",
                                     on_delete=models.CASCADE, )
     note = models.TextField(blank=True, null=True)
@@ -83,11 +83,11 @@ class Task(models.Model):
     def get_absolute_url(self):
         return reverse("analyzer:task_detail", kwargs={"task_id": self.id})
 
-    # Auto-set the Task creation / completed date
+    # Auto-set the Task creation / analyzed date
     def save(self, **kwargs):
-        # If Task is being marked complete, set the completed_date
-        if self.completed:
-            self.completed_date = datetime.datetime.now()
+        # If Task is being marked complete, set the analyzed_date
+        if self.analyzed:
+            self.analyzed_date = datetime.datetime.now()
         super(Task, self).save()
 
     def merge_into(self, merge_target):
@@ -111,8 +111,8 @@ class Comment(models.Model):
     a comment and change task details at the same time. Rolling our own since it's easy.
     """
 
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     date = models.DateTimeField(default=datetime.datetime.now)
 
     body = models.TextField(blank=True)
@@ -138,7 +138,6 @@ class Attachment(models.Model):
     """
 
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
-    added_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(default=datetime.datetime.now)
     file = models.FileField(upload_to=get_attachment_upload_dir, max_length=255)
 

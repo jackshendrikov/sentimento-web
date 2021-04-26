@@ -133,9 +133,7 @@ class Comment(models.Model):
 
 
 class Attachment(models.Model):
-    """
-    Defines a generic file attachment for use in M2M relation with Task.
-    """
+    """ Defines a generic file attachment for use in M2M relation with Task """
 
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(default=datetime.datetime.now)

@@ -4,8 +4,9 @@ hash_table = {
     "ALLOW_FILE_ATTACHMENTS": True,
     "COMMENT_CLASSES": [],
     "DEFAULT_ASSIGNEE": None,
-    "LIMIT_FILE_ATTACHMENTS": [".csv", ".pdf"],
+    "LIMIT_FILE_ATTACHMENTS": [".pdf"],
     "MAXIMUM_ATTACHMENT_SIZE": 5000000,
+    "MAXIMUM_ATTACHMENT_FILES": 3,
     "PUBLIC_SUBMIT_REDIRECT": "/",
     "STAFF_ONLY": False,
 }

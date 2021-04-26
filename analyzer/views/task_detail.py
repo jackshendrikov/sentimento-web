@@ -85,6 +85,10 @@ def task_detail(request, task_id: int) -> HttpResponse:
     if request.FILES.get("attachment_file_input"):
         file = request.FILES.get("attachment_file_input")
 
+        if Attachment.objects.filter(task_id=task.id).count() >= defaults("MAXIMUM_ATTACHMENT_FILES"):
+            messages.error(request, f"You can upload maximum 3 files, if you want re-upload, then delete something.")
+            return redirect("analyzer:task_detail", task_id=task.id)
+
         if file.size > defaults("MAXIMUM_ATTACHMENT_SIZE"):
             messages.error(request, f"File exceeds maximum attachment size.")
             return redirect("analyzer:task_detail", task_id=task.id)
@@ -92,7 +96,7 @@ def task_detail(request, task_id: int) -> HttpResponse:
         name, extension = os.path.splitext(file.name)
 
         if extension not in defaults("LIMIT_FILE_ATTACHMENTS"):
-            messages.error(request, f"This site does not allow upload of {extension} files.")
+            messages.error(request, f"This site allows you to upload only `pdf`, you can't upload {extension} files.")
             return redirect("analyzer:task_detail", task_id=task.id)
 
         Attachment.objects.create(task=task, timestamp=datetime.datetime.now(), file=file)

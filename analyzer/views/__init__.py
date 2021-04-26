@@ -1,7 +1,6 @@
 from analyzer.views.add_list import add_list  # noqa: F401
 from analyzer.views.del_list import del_list  # noqa: F401
 from analyzer.views.delete_task import delete_task  # noqa: F401
-from analyzer.views.external_add import external_add  # noqa: F401
 from analyzer.views.import_csv import import_csv  # noqa: F401
 from analyzer.views.list_detail import list_detail  # noqa: F401
 from analyzer.views.list_lists import list_lists  # noqa: F401

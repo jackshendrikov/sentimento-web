@@ -49,19 +49,6 @@ class AddEditTaskForm(ModelForm):
         exclude = []
 
 
-class AddExternalTaskForm(ModelForm):
-    """Form to allow users who are not part of the GTD system to file a ticket."""
-
-    username = forms.CharField(widget=forms.widgets.TextInput(attrs={"size": 35}), label="Username")
-    email = forms.CharField(widget=forms.widgets.TextInput(attrs={"size": 35}), label="Email")
-    note = forms.CharField(widget=forms.widgets.Textarea(), label="Description")
-    priority = forms.IntegerField(widget=forms.HiddenInput())
-
-    class Meta:
-        model = Task
-        exclude = ("task_list", "created_date", "email", "created_by", "assigned_to", "analyzed", "analyzed_date",)
-
-
 class SearchForm(forms.Form):
     """Search."""
     q = forms.CharField(widget=forms.widgets.TextInput(attrs={"size": 35}))

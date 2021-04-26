@@ -157,6 +157,7 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 STATICFILES_DIRS = (
     'static',
+    'models',
     os.path.join(BASE_DIR, 'static'),
 )
 
@@ -164,8 +165,8 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-LOGOUT_REDIRECT_URL = '/home/'
-LOGIN_REDIRECT_URL = '/home/'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
 
 LOGGING = {
     'version': 1,

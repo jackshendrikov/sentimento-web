@@ -29,7 +29,7 @@
                     <form method="post" action="{% url "analyzer:task_toggle_done" task.id %}" role="form" class="d-inline">
                         {% csrf_token %}
                         <div style="display:inline; text-align: center;">
-                            <button class="btn btn-info btn-sm" type="submit" name="toggle_done" style="width: auto; margin: 0 10px 0 0; font-size: 14px;">
+                            <button class="btn btn-sm btn-info" type="submit" name="toggle_done" style="width: auto; margin: 0 10px 0 0; font-size: 14px;">
                                 {% if task.analyzed %} Mark Not Done {% else %} Mark Done {% endif %}
                             </button>
                         </div>
@@ -38,7 +38,7 @@
                     <form method="post" action="{% url "analyzer:delete_task" task.id %}" role="form" class="d-inline">
                         {% csrf_token %}
                         <div style=" display: block; text-align: center;">
-                            <button class="btn btn-danger btn-sm" type="submit" name="submit_delete" style="width: auto; margin: 0; font-size: 14px;">
+                            <button class="btn btn-sm btn-danger" type="submit" name="submit_delete" style="width: auto; margin: 0; font-size: 14px;">
                                 Delete
                             </button>
                         </div>
@@ -144,7 +144,7 @@
                     {% csrf_token %}
                     <div class="input-group mb-3">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="attachment_file_input" name="attachment_file_input" />
+                            <input type="file" class="custom-file-input" accept="application/pdf" id="attachment_file_input" name="attachment_file_input" />
                             <label class="custom-file-label" for="attachment_file_input">Choose file</label>
                         </div>
 

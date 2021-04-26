@@ -142,4 +142,4 @@ dmypy.json
 media/
 
 # Large Word2Vec Model
-model/model-word2vec-300d.txt
+models/glove.6B.50d.w2vformat.txt

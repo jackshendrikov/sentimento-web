@@ -13,7 +13,7 @@ from analyzer.utils import staff_check
 @login_required
 @user_passes_test(staff_check)
 def add_list(request) -> HttpResponse:
-    """Allow users to add a new to-do list to the group they're in."""
+    """Allow users to add a new list to the group they're in."""
 
     # Only staffers can add lists, regardless of STAFF_USER setting.
     if not request.user.is_staff:

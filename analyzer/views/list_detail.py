@@ -11,7 +11,7 @@ from analyzer.models import Task, TaskList
 
 
 def list_detail(request, list_id=None, list_slug=None, view_completed=False) -> HttpResponse:
-    """Display and manage tasks in a to-do list."""
+    """Display and manage tasks in a list."""
 
     # Defaults
     task_list = None

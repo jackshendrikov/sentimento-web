@@ -19,6 +19,7 @@
 
         <div class="col-sm-4 p-0">
             <ul>
+                {% if user.is_authenticated %}
                 <li>
                     <button class="btn btn-sm btn-primary" id="EditTaskButton" type="button"
                             data-toggle="collapse" data-target="#TaskEdit">
@@ -43,6 +44,7 @@
                         </div>
                     </form>
                 </li>
+                {% endif %}
 
                 <li>
                     <strong>Assigned to: &nbsp;</strong>

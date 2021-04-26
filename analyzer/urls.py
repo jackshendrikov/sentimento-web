@@ -11,7 +11,7 @@ urlpatterns = [
     # View reorder_tasks is only called by JQuery for drag/drop task ordering.
     path('reorder_tasks/', views.reorder_tasks, name="reorder_tasks"),
 
-    # Allow users to post tasks from outside django-to-do
+    # Allow users to post tasks from outside
     path('ticket/add/', views.external_add, name="external_add"),
 
     # Three paths into `list_detail` view

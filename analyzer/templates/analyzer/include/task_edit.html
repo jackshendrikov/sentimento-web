@@ -4,8 +4,8 @@
     {% csrf_token %}
     <div class="mt-3">
         <div class="form-group">
-            <label for="id_username" name="username">Task</label>
-            <input type="text" class="form-control" id="id_username" name="username" required placeholder="Task title (<= 140 characters)"
+            <label for="id_username" name="username">Full Name</label>
+            <input type="text" class="form-control" id="id_username" name="username" required placeholder="Enter your full name (<= 140 characters)"
                    value="{% if form.username.value %}{{ form.username.value }}{% endif %}">
         </div>
 
@@ -13,7 +13,7 @@
             <label for="id_note">Description</label>
             <textarea class="form-control" id="id_note" name="note" rows="5" aria-describedby="inputNoteHelp">{% if form.note.value %}{{ form.note.value }}{% endif %}</textarea>
             <small id="inputNoteHelp" class="form-text text-muted">
-                Describe the task or bug. Provide steps to reproduce the issue.
+                Leave a note if needed for a better description of the documents.
             </small>
         </div>
 

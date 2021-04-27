@@ -6,14 +6,14 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 
 from analyzer.models import Task
-from analyzer.utils import toggle_task_analyzed
+from analyzer.utils import toggle_task_checked
 from analyzer.utils import staff_check
 
 
 @login_required
 @user_passes_test(staff_check)
 def toggle_done(request, task_id: int) -> HttpResponse:
-    """Toggle the analyzed status of a task from done to undone, or vice versa.
+    """Toggle the checked status of a task from done to undone, or vice versa.
     Redirect to the list from which the task came.
     """
 
@@ -28,7 +28,7 @@ def toggle_done(request, task_id: int) -> HttpResponse:
                 or (task.task_list.group in request.user.groups.all())):
             raise PermissionDenied
 
-        toggle_task_analyzed(task.id)
+        toggle_task_checked(task.id)
         messages.success(request, "Task status changed for task from '{}'".format(task.username))
 
         return redirect(redir_url)

@@ -29,7 +29,7 @@ class CSVImporter:
         with no path!
 
         Header row is:
-        Username, Group, Task List, Created Date, Email, Analyzed, Created By, Assigned To, Note, Priority
+        Username, Group, Task List, Created Date, Email, Checked, Created By, Assigned To, Note, Priority
         """
 
         if as_string_obj:
@@ -48,7 +48,7 @@ class CSVImporter:
             "Created By",
             "Created Date",
             "Email",
-            "Analyzed",
+            "Checked",
             "Assigned To",
             "Note",
             "Priority",
@@ -77,7 +77,7 @@ class CSVImporter:
                     username=newrow.get("Username"),
                     defaults={
                         "assigned_to": assignee,
-                        "analyzed": newrow.get("Analyzed"),
+                        "checked": newrow.get("Checked"),
                         "created_date": created_date,
                         "email": email,
                         "note": newrow.get("Note"),
@@ -177,8 +177,8 @@ class CSVImporter:
         if assignee:
             row["Assigned To"] = assignee
 
-        # Set Analyzed
-        row["Analyzed"] = (row["Analyzed"] == "Yes")
+        # Set Checked
+        row["Checked"] = (row["Checked"] == "Yes")
 
         # #######################
         if row_errors:

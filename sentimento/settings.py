@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
-
+import tensorflow as tf
+import gensim.models.keyedvectors as word2vec
 from decouple import config, Csv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -50,6 +51,8 @@ FILE_UPLOAD_PERMISSIONS = 0o644
 
 SITE_ID = 1
 
+WordVec = word2vec.KeyedVectors.load_word2vec_format('models/glove.6B.50d.w2vformat.txt', binary=False)
+graph = tf.compat.v1.get_default_graph()
 
 # Application definition
 

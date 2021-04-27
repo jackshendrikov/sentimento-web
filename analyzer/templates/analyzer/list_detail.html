@@ -38,7 +38,7 @@
             {% if list_slug == "mine" %}
                 <div class="content-section-main-title" style="margin-bottom: 14px; font-size: 20px;">Tasks assigned to me (in all groups)</div>
             {% else %}
-                <div class="content-section-main-title" style="font-size: 20px;">{{ view_analyzed|yesno:"Analyzed tasks, Tasks" }} in "{{ task_list.name }}"</div>
+                <div class="content-section-main-title" style="font-size: 20px;">{{ view_checked|yesno:"Checked tasks, Tasks" }} in "{{ task_list.name }}"</div>
                 <p style="text-align: center;"><small><i>In workgroup "{{ task_list.group }}" - drag rows to set priorities.</i></small></p>
             {% endif %}
 
@@ -48,7 +48,7 @@
                     <th>Created</th>
                     <th>Email</th>
                     <th>Assigned</th>
-                    <th>Analyzed</th>
+                    <th>Checked</th>
                     <th>Delete</th>
                 </tr>
 
@@ -69,8 +69,8 @@
                         <td>
                             <form method="post" action="{% url "analyzer:task_toggle_done" task.id %}" role="form">
                                 {% csrf_token %}
-                                <button class="btn btn-info btn-sm" type="submit" name="toggle_done">
-                                    {% if view_analyzed %}
+                                <button class="btn btn-info btn-sm" type="submit" name="toggle_done" style="font-size: 14px;">
+                                    {% if view_checked %}
                                         Not Done
                                     {% else %}
                                         Done
@@ -82,7 +82,7 @@
                         <td>
                             <form method="post" action="{% url "analyzer:delete_task" task.id %}" role="form">
                                 {% csrf_token %}
-                                <input type="submit" value="X" class="btn btn-danger btn-sm" name="submit_delete" style="width: 40px; font-size: 14px;">
+                                <input type="submit" value="X" class="btn btn-danger btn-sm" name="submit_delete" style="width: 50px; font-size: 14px;">
                             </form>
                         </td>
                     </tr>

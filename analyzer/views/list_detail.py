@@ -10,7 +10,7 @@ from analyzer.forms import AddEditTaskForm
 from analyzer.models import Task, TaskList
 
 
-def list_detail(request, list_id=None, list_slug=None, view_analyzed=False) -> HttpResponse:
+def list_detail(request, list_id=None, list_slug=None, view_checked=False) -> HttpResponse:
     """Display and manage tasks in a list."""
 
     # Defaults
@@ -27,10 +27,10 @@ def list_detail(request, list_id=None, list_slug=None, view_analyzed=False) -> H
         tasks = Task.objects.filter(task_list=task_list.id)
 
     # Additional filtering
-    if view_analyzed:
-        tasks = tasks.filter(analyzed=True)
+    if view_checked:
+        tasks = tasks.filter(checked=True)
     else:
-        tasks = tasks.filter(analyzed=False)
+        tasks = tasks.filter(checked=False)
 
     # ######################
     #  Add New Task Form
@@ -69,7 +69,7 @@ def list_detail(request, list_id=None, list_slug=None, view_analyzed=False) -> H
         "task_list": task_list,
         "form": form,
         "tasks": tasks,
-        "view_analyzed": view_analyzed,
+        "view_checked": view_checked,
     }
 
     return render(request, "analyzer/list_detail.html", context)

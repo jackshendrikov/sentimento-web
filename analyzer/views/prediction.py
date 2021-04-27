@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 
 from analyzer.utils import staff_check, predict, convert_pdf_to_txt
-from analyzer.models import Attachment
+from analyzer.models import Attachment, Comment
 
 
 @login_required
@@ -23,8 +23,12 @@ def prediction(request, attachment_id: int) -> HttpResponse:
         txt = convert_pdf_to_txt(attachment.file.path)
 
         txt_prediction = predict(txt)
+        msg = "Prediction for file `" + str(attachment.filename) + "`:" + str(float(txt_prediction))
+        print(msg)
 
-        print("Prediction is :", float(txt_prediction))
-        context = {'prediction': round(float(txt_prediction), 2) * 100}
+        # posted comment with result of prediction
+        Comment.objects.create(author=request.user, task=attachment.task, body=msg)
+
+        context = {'prediction': round(float(txt_prediction), 2) * 100, 'attachment': attachment.filename}
 
         return render(request, 'analyzer/predict.html', context)

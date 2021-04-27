@@ -31,9 +31,9 @@ def list_lists(request) -> HttpResponse:
 
     # superusers see all lists, so count shouldn't filter by just lists the admin belongs to
     if request.user.is_superuser:
-        task_count = Task.objects.filter(analyzed=0).count()
+        task_count = Task.objects.filter(checked=0).count()
     else:
-        task_count = (Task.objects.filter(analyzed=0).filter(task_list__group__in=request.user.groups.all()).count())
+        task_count = (Task.objects.filter(checked=0).filter(task_list__group__in=request.user.groups.all()).count())
 
     context = {
         "lists": lists,

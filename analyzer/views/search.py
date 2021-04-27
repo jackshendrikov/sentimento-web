@@ -21,12 +21,12 @@ def search(request) -> HttpResponse:
 
             found_tasks = Task.objects.filter(Q(username__icontains=query_string) | Q(note__icontains=query_string))
         else:
-            # What if they selected the "analyzed" toggle but didn't enter a query string?
+            # What if they selected the "checked" toggle but didn't enter a query string?
             # We still need found_tasks in a queryset so it can be "excluded" below.
             found_tasks = Task.objects.all()
 
         if "inc_complete" in request.GET:
-            found_tasks = found_tasks.exclude(analyzed=True)
+            found_tasks = found_tasks.exclude(checked=True)
 
     else:
         found_tasks = None

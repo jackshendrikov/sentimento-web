@@ -70,8 +70,8 @@ class Task(models.Model):
     task_list = models.ForeignKey(TaskList, on_delete=models.CASCADE, null=True)
     created_date = models.DateField(default=timezone.now, blank=True, null=True)
     email = models.CharField(max_length=100, blank=False, default=False)
-    analyzed = models.BooleanField(default=False)
-    analyzed_date = models.DateField(blank=True, null=True)
+    checked = models.BooleanField(default=False)
+    checked_date = models.DateField(blank=True, null=True)
     assigned_to = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, related_name="task_assigned_to",
                                     on_delete=models.CASCADE, )
     note = models.TextField(blank=True, null=True)
@@ -83,11 +83,11 @@ class Task(models.Model):
     def get_absolute_url(self):
         return reverse("analyzer:task_detail", kwargs={"task_id": self.id})
 
-    # Auto-set the Task creation / analyzed date
+    # Auto-set the Task creation / checked date
     def save(self, **kwargs):
-        # If Task is being marked complete, set the analyzed_date
-        if self.analyzed:
-            self.analyzed_date = datetime.datetime.now()
+        # If Task is being marked complete, set the checked_date
+        if self.checked:
+            self.checked_date = datetime.datetime.now()
         super(Task, self).save()
 
     def merge_into(self, merge_target):

@@ -37,7 +37,7 @@ class AddEditTaskForm(ModelForm):
     email = forms.CharField(widget=forms.widgets.TextInput())
     username = forms.CharField(widget=forms.widgets.TextInput())
     note = forms.CharField(widget=forms.Textarea(), required=False)
-    analyzed = forms.BooleanField(required=False)
+    checked = forms.BooleanField(required=False)
 
     def clean_created_by(self):
         """Keep the existing created_by regardless of anything coming from the submitted form.

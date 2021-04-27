@@ -1,5 +1,5 @@
 {% extends "analyzer/base.html" %}
-{% block title %}Task:{{ task.title }}{% endblock %}
+{% block title %}Task:{{ task.username }}{% endblock %}
 
 {% block extrahead %}
     {{ form.media }}
@@ -10,7 +10,7 @@
     <div class="card-deck">
         <div class="item col-sm-7" style="cursor: default;">
             <div class="card-body">
-                <div class="content-section-main-title" style="font-size: 20px;">{{ task.title }}</div>
+                <div class="content-section-main-title" style="font-size: 20px;">{{ task.username }}</div>
                 {% if task.note %}
                     <div class="content-section-title" style="margin: 0;">{{ task.note|safe|urlize|linebreaks }}</div>
                 {% endif %}
@@ -30,7 +30,7 @@
                         {% csrf_token %}
                         <div style="display:inline; text-align: center;">
                             <button class="btn btn-sm btn-info" type="submit" name="toggle_done" style="width: auto; margin: 0 10px 0 0; font-size: 14px;">
-                                {% if task.analyzed %} Mark Not Done {% else %} Mark Done {% endif %}
+                                {% if task.checked %} Mark Not Done {% else %} Mark Done {% endif %}
                             </button>
                         </div>
                     </form>
@@ -59,13 +59,13 @@
                     <strong>Email: &nbsp;</strong> {{ task.email }}
                 </li>
 
-                {% if task.analyzed %}
+                {% if task.checked %}
                     <li>
-                        <strong>Analyzed on: &nbsp;</strong> {{ task.analyzed_date}}
+                        <strong>Checked on: &nbsp;</strong> {{ task.checked_date}}
                     </li>
                 {% else %}
                     <li>
-                        <strong>Analyzed: &nbsp;</strong> {{ task.analyzed|yesno:"Yes,No" }}
+                        <strong>Checked: &nbsp;</strong> {{ task.checked|yesno:"Yes,No" }}
                     </li>
                 {% endif %}
 
@@ -117,6 +117,7 @@
                                 <th>File</th>
                                 <th>Uploaded</th>
                                 <th>Type</th>
+                                <th>Analyze</th>
                                 <th>Remove</th>
                             </tr>
                             </thead>
@@ -127,6 +128,14 @@
                                     <td><a style="color: #1496bb;" href="{{ attachment.file.url }}">{{ attachment.filename }}</a></td>
                                     <td>{{ attachment.timestamp }}</td>
                                     <td>{{ attachment.extension.lower }}</td>
+                                     <td>
+                                        <form action="{% url "analyzer:prediction" attachment.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-success btn-sm" style="width: 50px;">
+                                                <i class="fa fa-play"></i>
+                                            </button>
+                                        </form>
+                                    </td>
                                     <td>
                                         <form action="{% url "analyzer:remove_attachment" attachment.id %}" method="POST">
                                             {% csrf_token %}

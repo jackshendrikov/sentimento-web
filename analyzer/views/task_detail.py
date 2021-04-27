@@ -13,7 +13,7 @@ from analyzer.defaults import defaults
 from analyzer.features import HAS_TASK_MERGE
 from analyzer.forms import AddEditTaskForm
 from analyzer.models import Attachment, Comment, Task
-from analyzer.utils import (toggle_task_analyzed, user_can_read_task)
+from analyzer.utils import (toggle_task_checked, user_can_read_task)
 
 
 if HAS_TASK_MERGE:
@@ -76,7 +76,7 @@ def task_detail(request, task_id: int) -> HttpResponse:
 
     # Mark complete
     if request.POST.get("toggle_done"):
-        results_changed = toggle_task_analyzed(task.id)
+        results_changed = toggle_task_checked(task.id)
         if results_changed:
             messages.success(request, f"Changed completion status for task {task.id}")
 

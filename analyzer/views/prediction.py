@@ -1,3 +1,5 @@
+import os
+
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
@@ -23,7 +25,8 @@ def prediction(request, attachment_id: int) -> HttpResponse:
         txt = convert_pdf_to_txt(attachment.file.path)
 
         txt_prediction = predict(txt)
-        msg = "Prediction for file `" + str(attachment.filename) + "`:" + str(float(txt_prediction))
+        msg = "Prediction for file `" + str(os.path.basename(attachment.file.name)) + "`: " + \
+              str(round(float(txt_prediction), 4) * 100) + '%'
         print(msg)
 
         # posted comment with result of prediction

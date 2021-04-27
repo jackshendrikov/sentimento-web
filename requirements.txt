@@ -7,8 +7,6 @@ h5py>=2.7.1
 html5lib>=1.0.1
 numpy==1.19.5
 nltk==3.5
-textract==1.6.3
-python-decouple~=3.4
 tensorflow>=2.1.0
 python-decouple~=3.4
 dj_database_url~=0.5.0

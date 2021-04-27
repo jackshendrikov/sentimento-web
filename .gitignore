@@ -140,6 +140,3 @@ dmypy.json
 
 # Media Dirs
 media/
-
-# Large Word2Vec Model
-models/glove.6B.50d.w2vformat.txt

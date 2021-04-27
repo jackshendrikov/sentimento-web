@@ -16,7 +16,7 @@ urlpatterns = [
     # Sample applications
     path('', TemplateView.as_view(template_name='home/main.html'), name='home_page'),
     path('authz/', include('authz.urls')),
-path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('analyzer/', include('analyzer.urls', namespace='analyzer')),
 ]
 

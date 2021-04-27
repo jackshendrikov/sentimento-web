@@ -1,12 +1,19 @@
 {% extends "home/base.html" %}
 
 {% block content %}
-    <h1>Welcome to JackShen World!</h1>
-    <p style="padding-bottom: 0.5rem;">NOTE: For login use -> <b>Login:</b> <i>guest</i> &nbsp;|&nbsp; <b>Password:</b> <i>!jack$hen.guest</i></p>
+    <h1 style="text-align: center;">Welcome to Sentimento Web!</h1>
+
     <p>
-        Some of my old and new projects on Django, as well as web design and web animation using HTML + CSS + JS
+        On this site you can add recommendation and motivation letters, and the administrator can conduct their sentiment analysis and share with you the result.
+        <br><br>
+        After filling out the forms, a unique link will be formed for you, and you will be able to follow the news about your document analysis.
+        <br><br>
+        Click the button below to add documents 🙃
     </p>
 
-    <a href="{{ analyzer }}">Analyzer</a>
+    {# Here place a link to the page where you want the user to add documents #}
+    <form style="text-align: center;" action="../analyzer/1/motivation/">
+        <input type="submit" class="btn btn-primary mt-4" style="width: 180px;" value="Add Documents" />
+    </form>
 
 {% endblock %}

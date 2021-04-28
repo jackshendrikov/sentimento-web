@@ -20,12 +20,12 @@
 
     <span style="text-align: center;">
         {# Here place a link to the page where you want the user to add documents #}
-        <form style="text-align: center;" action="../analyzer/1/motivation/">
+        <form style="text-align: center;" action="../analyzer/1/motivation-lists/">
             <input type="submit" class="btn btn-primary mt-4" style="width: 180px;" value="Add Documents" />
         </form>
 
         {% if user.is_authenticated %}
-        <form style="text-align: center;" action="{{ analyzer }}">
+        <form style="text-align: center;" action="{% url "analyzer" %}">
             <input type="submit" class="btn btn-success mt-4" style="width: 180px;" value="Analyzer Stats" />
         </form>
         {% endif %}

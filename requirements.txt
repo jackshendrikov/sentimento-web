@@ -10,7 +10,7 @@ h5py>=2.7.1
 html5lib>=1.0.1
 numpy==1.19.5
 nltk==3.5
-tensorflow>=2.1.0
+tensorflow-cpu>=2.1.0
 python-decouple~=3.4
 bleach~=3.0.2
 pdfminer==20191125

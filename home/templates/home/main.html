@@ -25,7 +25,7 @@
         </form>
 
         {% if user.is_authenticated %}
-        <form style="text-align: center;" action="{% url "analyzer" %}">
+        <form style="text-align: center;" action="{% url 'analyzer:lists' %}">
             <input type="submit" class="btn btn-success mt-4" style="width: 180px;" value="Analyzer Stats" />
         </form>
         {% endif %}

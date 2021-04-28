@@ -1,1 +1,1 @@
-web: gunicorn sentimento.wsgi --log-file -
+web: gunicorn sentimento.wsgi --log-file debug

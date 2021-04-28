@@ -137,7 +137,7 @@ def predict(sent):
 
 def convert_pdf_to_txt(path):
     rsrcmgr, retstr, laparams = PDFResourceManager(), StringIO(), LAParams()
-    device = TextConverter(rsrcmgr, retstr, codec='utf-8', laparams=laparams)
+    device = TextConverter(rsrcmgr, retstr, laparams=laparams)
 
     fp = open(path, 'rb')
     interpreter = PDFPageInterpreter(rsrcmgr, device)

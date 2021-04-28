@@ -1,1 +1,1 @@
-web: gunicorn sentimento.wsgi --log-file debug
+web: gunicorn sentimento.wsgi --timeout 120 --log-level=debug

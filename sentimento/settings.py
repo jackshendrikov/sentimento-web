@@ -51,7 +51,7 @@ FILE_UPLOAD_PERMISSIONS = 0o644
 
 SITE_ID = 1
 
-WordVec = word2vec.KeyedVectors.load_word2vec_format('models/glove.6B.50d.w2vformat.txt', binary=False)
+WordVec = word2vec.KeyedVectors.load_word2vec_format('models/glove.6B.50d.w2vformat.txt', binary=False, encoding="utf-8")
 graph = tf.compat.v1.get_default_graph()
 
 # Application definition

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
+import django_heroku
 import dj_database_url
 import tensorflow as tf
 import gensim.models.keyedvectors as word2vec
@@ -197,3 +198,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Heroku: Update database configuration from $DATABASE_URL.
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
+
+django_heroku.settings(locals())

@@ -1,5 +1,12 @@
 {% extends "home/base.html" %}
 
+{% block extrahead %}
+    <style>
+        form { display: inline-block; }
+    </style>
+{% endblock %}
+
+
 {% block content %}
     <h1 style="text-align: center;">Welcome to Sentimento Web!</h1>
 
@@ -11,9 +18,16 @@
         Click the button below to add documents 🙃
     </p>
 
-    {# Here place a link to the page where you want the user to add documents #}
-    <form style="text-align: center;" action="../analyzer/1/motivation/">
-        <input type="submit" class="btn btn-primary mt-4" style="width: 180px;" value="Add Documents" />
-    </form>
+    <span style="text-align: center;">
+        {# Here place a link to the page where you want the user to add documents #}
+        <form style="text-align: center;" action="../analyzer/1/motivation/">
+            <input type="submit" class="btn btn-primary mt-4" style="width: 180px;" value="Add Documents" />
+        </form>
 
+        {% if user.is_authenticated %}
+        <form style="text-align: center;" action="{{ analyzer }}">
+            <input type="submit" class="btn btn-success mt-4" style="width: 180px;" value="Analyzer Stats" />
+        </form>
+        {% endif %}
+    </span>
 {% endblock %}

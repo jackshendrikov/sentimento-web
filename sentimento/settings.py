@@ -36,10 +36,6 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 # Document
-DEFAULT_LIST_SLUG = 'personal'
-DEFAULT_ASSIGNEE = 'teacher'
-PUBLIC_SUBMIT_REDIRECT = '/analyzer/ticket/add/'
-
 ALLOW_FILE_ATTACHMENTS = True
 ALLOWED_FILE_ATTACHMENTS = [".pdf"]
 MAXIMUM_ATTACHMENT_SIZE = 5000000  # In bytes

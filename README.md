@@ -105,7 +105,7 @@ Home Page         |  Home Page (Admin) | Add Page      |  Add Page (Admin)
 
 Add Page (Form)         |  Login Page  |  Personal Page    |  Personal Page (Admin)
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
-<img src="img/add-task.png" title="Add Page (Form)" width="100%"> |<img src="img/login.png" title="Login Page" width="100%">|<img src="img/pp.png" title="Personal Page" width="100%"> |<img src="img/pp_admin.png" title="Personal Page (Admin)" width="100%">
+<img src="img/add_task.png" title="Add Page (Form)" width="100%"> |<img src="img/login.png" title="Login Page" width="100%">|<img src="img/pp.png" title="Personal Page" width="100%"> |<img src="img/pp_admin.png" title="Personal Page (Admin)" width="100%">
 
 Comments        |  Search  |  Predict Page   |  Import CSV
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:

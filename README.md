@@ -1,4 +1,4 @@
-<h1 align="center">Sentimento Web (English)</h1>
+<h1 align="center">Sentimento Web</h1>
 
 <p align="center">
   <img src="img/add.png" alt="Sentimento" width="800">
@@ -6,7 +6,7 @@
 
 ## 📋 &nbsp;Overview
 
-This site was designed for sentiment analysis of text documents on English language. The models for sentiment analysis that were used in this project were created earlier in [this project](https://github.com/JackShen1/sentimento-en), where in III parts the whole process of data preparation and training of our model was described, a comparative analysis of classifiers and different models was conducted. 
+This site was designed for sentiment analysis of text documents on English language. The models for sentiment analysis that were used in this project were created earlier in [this project](https://github.com/JackShen1/sentimento), where in III parts the whole process of data preparation and training of our model was described, a comparative analysis of classifiers and different models was conducted. 
 
 In general, this application is multi-user and multi-group. Users who are not registered can fill out the form (**full name**, **email**, **note** (_optional_), **assigned_to** (_optional_)), after which will form a unique link and the user can upload their documents (maximum 3, this changes in the settings) and look at the comments from the teacher and the results of the analysis of his documents.
 
